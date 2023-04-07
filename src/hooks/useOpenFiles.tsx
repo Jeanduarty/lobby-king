@@ -7,6 +7,7 @@ type OpenFilesContextProps = {
   openFiles: string[];
   markFileAsOpen: (tab: string) => void;
   closeFile: (tabIndex: number) => void;
+  whenAddNewFile: (path: string) => void;
 };
 
 const OpenFilesContext = createContext({} as OpenFilesContextProps);
@@ -24,6 +25,10 @@ export function OpenFilesProvider({ children }: { children: React.ReactNode }) {
     return [];
   });
 
+  const whenAddNewFile = (path: string) => {
+    setOpenFiles([path]);
+  };
+
   const markFileAsOpen = (file: string) => {
     if (openFiles.includes(file)) {
       return;
@@ -39,7 +44,9 @@ export function OpenFilesProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <OpenFilesContext.Provider value={{ openFiles, markFileAsOpen, closeFile }}>
+    <OpenFilesContext.Provider
+      value={{ openFiles, markFileAsOpen, closeFile, whenAddNewFile }}
+    >
       {children}
     </OpenFilesContext.Provider>
   );

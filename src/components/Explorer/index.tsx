@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Gamepad2 } from "lucide-react";
 import { Folder } from "./Folder";
 import { File } from "./File";
@@ -15,7 +14,7 @@ type ExplorerProps = {
 
 export function Explorer({ allMatches }: ExplorerProps) {
   const { matches: contextMatches } = useExploreFiles();
-  // const [matches, setMatches] = useState(allMatches);
+
   const matches = !!Object.keys(contextMatches).length
     ? contextMatches
     : allMatches;

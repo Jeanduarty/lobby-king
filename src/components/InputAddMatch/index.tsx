@@ -6,6 +6,7 @@ import { api } from "@/services/api";
 import { Spinner } from "../Spinner";
 import { useExploreFiles } from "@/hooks/useExploreFiles";
 import { useRouter } from "next/navigation";
+import { useOpenFiles } from "@/hooks/useOpenFiles";
 
 export function InputAddMatch() {
   const [teamWinner, setTeamWinner] = useState("teamEfemero");
@@ -16,6 +17,7 @@ export function InputAddMatch() {
   const [password, setPassword] = useState("");
 
   const { UpdateMatches } = useExploreFiles();
+  const { whenAddNewFile } = useOpenFiles();
   const { push } = useRouter();
 
   function handleChangeTeamWinner(teamWinner: string) {
@@ -73,7 +75,9 @@ export function InputAddMatch() {
 
         UpdateMatches();
         setMatchId("");
-        push(`/matches/${matchId}`);
+        setIsOkToOpenDialog(false);
+        whenAddNewFile(`/matches/${matchId}`);
+        return push(`/matches/${matchId}`);
       } catch (error) {
         console.log(error);
       }
