@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Dialog } from "./Dialog";
-import { api } from "@/services/api";
 import { Spinner } from "../Spinner";
 import { useExploreFiles } from "@/hooks/useExploreFiles";
 import { useRouter } from "next/navigation";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
+import axios from "axios";
 
 export function InputAddMatch() {
   const [teamWinner, setTeamWinner] = useState("teamEfemero");
@@ -36,15 +36,15 @@ export function InputAddMatch() {
     setLoading(true);
 
     try {
-      const isMatchExist = await api
-        .get(`http://localhost:3000/matches/api/${matchId}`)
+      const isMatchExist = await axios
+        .get(`/matches/api/${matchId}`)
         .then((res) => res.data);
 
       if (!!isMatchExist) {
         return setLoading(false);
       }
 
-      const responseOpenDotaMatchId = await api.get(
+      const responseOpenDotaMatchId = await axios.get(
         `https://api.opendota.com/api/matches/${matchId}`
       );
 
@@ -66,7 +66,7 @@ export function InputAddMatch() {
   async function handleClickConfirmAddMatch() {
     if (password === process.env.NEXT_PUBLIC_PASSWORD) {
       try {
-        await api.post("http://localhost:3000/matches/api", {
+        await axios.post("/matches/api", {
           match_id: Number(matchId),
           winner: teamWinner,
           date: dataMatch.start_time,

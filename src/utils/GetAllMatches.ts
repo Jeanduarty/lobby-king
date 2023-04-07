@@ -20,7 +20,7 @@ export async function GetAllMatches() {
     historic: [],
   };
 
-  const data = await fetch("http://localhost:3000/matches/api")
+  const data = await fetch("/matches/api")
     .then((res) => res.json());
 
   data.forEach((match: Match) => {
