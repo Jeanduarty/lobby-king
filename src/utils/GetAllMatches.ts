@@ -20,7 +20,7 @@ export async function GetAllMatches() {
     historic: [],
   };
 
-  const data = await fetch("/matches/api")
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/matches/api`)
     .then((res) => res.json());
 
   data.forEach((match: Match) => {
