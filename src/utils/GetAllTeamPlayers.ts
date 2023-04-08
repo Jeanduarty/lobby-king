@@ -19,7 +19,7 @@ export async function GetAllTeamPlayers(slug: string) {
     (res) => res.json()
   );
 
-  const matchData: matchDataProps = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/matches/api/${slug}`).then(
+  const matchData: matchDataProps = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/matches/api/${slug}`).then(
     (res) => res.json()
   );
 
