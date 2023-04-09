@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
 import axios from "axios";
 
-const baseUrl = process.env.BASE_URL
-  ? process.env.BASE_URL
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  ? process.env.NEXT_PUBLIC_BASE_URL
   : process.env.NEXT_PUBLIC_VERCEL_URL;
 
 export function InputAddMatch() {
@@ -23,9 +23,6 @@ export function InputAddMatch() {
   const { UpdateMatches } = useExploreFiles();
   const { whenAddNewFile } = useOpenFiles();
   const { push } = useRouter();
-
-  console.log("baseUrl", baseUrl);
-  console.log("databaseurl", process.env.DATABASE_URL);
 
   function handleChangeTeamWinner(teamWinner: string) {
     setTeamWinner(teamWinner);
@@ -46,6 +43,8 @@ export function InputAddMatch() {
       const isMatchExist = await axios
         .get(`${baseUrl}/matches/api/${matchId}`)
         .then((res) => res.data);
+        console.log(isMatchExist,"asdsa");
+        
 
       if (!!isMatchExist) {
         return setLoading(false);

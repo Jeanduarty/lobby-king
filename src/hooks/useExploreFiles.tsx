@@ -1,7 +1,7 @@
 "use client";
 
 import { AllMatches, GetAllMatches } from "@/utils/GetAllMatches";
-import { ReactNode, createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type ExploreFilesContextData = {
   UpdateMatches: () => void;
