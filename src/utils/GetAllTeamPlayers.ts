@@ -14,12 +14,16 @@ type matchDataProps = {
   radiant_win: boolean;
 };
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+  ? process.env.NEXT_PUBLIC_BASE_URL
+  : process.env.NEXT_PUBLIC_VERCEL_URL;
+
 export async function GetAllTeamPlayers(slug: string) {
   const ApiOpendotaData = await fetch(`https://api.opendota.com/api/matches/${slug}`).then(
     (res) => res.json()
   );
 
-  const matchData: matchDataProps = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/matches/api/${slug}`).then(
+  const matchData: matchDataProps = await fetch(`${baseUrl}/matches/api/${slug}`).then(
     (res) => res.json()
   );
 

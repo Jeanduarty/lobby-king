@@ -11,6 +11,10 @@ export type AllMatches = {
   historic: Match[];
 };
 
+const baseUrl = process.env.BASE_URL
+  ? process.env.BASE_URL
+  : process.env.NEXT_PUBLIC_VERCEL_URL;
+
 export async function GetAllMatches() {
   // Função para pegar todas as partidas e reorganizar em um array para
   //facilitar na hora de criar os componentes
@@ -20,7 +24,7 @@ export async function GetAllMatches() {
     historic: [],
   };
 
-  const data = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/matches/api`)
+  const data = await fetch(`${baseUrl}/matches/api`)
     .then((res) => res.json());
 
   data.forEach((match: Match) => {

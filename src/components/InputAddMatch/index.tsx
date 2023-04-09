@@ -8,6 +8,10 @@ import { useRouter } from "next/navigation";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
 import axios from "axios";
 
+const baseUrl = process.env.BASE_URL
+  ? process.env.BASE_URL
+  : process.env.NEXT_PUBLIC_VERCEL_URL;
+
 export function InputAddMatch() {
   const [teamWinner, setTeamWinner] = useState("teamEfemero");
   const [matchId, setMatchId] = useState("");
@@ -37,7 +41,7 @@ export function InputAddMatch() {
 
     try {
       const isMatchExist = await axios
-        .get(`${process.env.NEXT_PUBLIC_VERCEL_URL}/matches/api/${matchId}`)
+        .get(`${baseUrl}/matches/api/${matchId}`)
         .then((res) => res.data);
 
       if (!!isMatchExist) {
@@ -66,7 +70,7 @@ export function InputAddMatch() {
   async function handleClickConfirmAddMatch() {
     if (password === process.env.NEXT_PUBLIC_PASSWORD) {
       try {
-        await axios.post(`${process.env.NEXT_PUBLIC_VERCEL_URL}/matches/api`, {
+        await axios.post(`${baseUrl}/matches/api`, {
           match_id: Number(matchId),
           winner: teamWinner,
           date: dataMatch.start_time,
