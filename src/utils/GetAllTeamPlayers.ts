@@ -23,7 +23,7 @@ export async function GetAllTeamPlayers(slug: string) {
     (res) => res.json()
   );
 
-  const matchData: matchDataProps = await fetch(`${baseUrl}/matches/api/${slug}`).then(
+  const matchData: matchDataProps = await fetch(`https://${baseUrl}/matches/api/${slug}`).then(
     (res) => res.json()
   );
 

@@ -24,7 +24,7 @@ export async function GetAllMatches() {
     historic: [],
   };
 
-  const data = await fetch(`${baseUrl}/matches/api`)
+  const data = await fetch(`https://${baseUrl}/matches/api`)
     .then((res) => res.json());
 
   data.forEach((match: Match) => {
