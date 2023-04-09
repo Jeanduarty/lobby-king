@@ -24,6 +24,8 @@ export function InputAddMatch() {
   const { whenAddNewFile } = useOpenFiles();
   const { push } = useRouter();
 
+  console.log("baseUrl", baseUrl);
+
   function handleChangeTeamWinner(teamWinner: string) {
     setTeamWinner(teamWinner);
   }
@@ -41,7 +43,7 @@ export function InputAddMatch() {
 
     try {
       const isMatchExist = await axios
-        .get(`https://${baseUrl}/matches/api/${matchId}`)
+        .get(`${baseUrl}/matches/api/${matchId}`)
         .then((res) => res.data);
 
       if (!!isMatchExist) {
@@ -70,7 +72,7 @@ export function InputAddMatch() {
   async function handleClickConfirmAddMatch() {
     if (password === process.env.NEXT_PUBLIC_PASSWORD) {
       try {
-        await axios.post(`https://${baseUrl}/matches/api`, {
+        await axios.post(`${baseUrl}/matches/api`, {
           match_id: Number(matchId),
           winner: teamWinner,
           date: dataMatch.start_time,

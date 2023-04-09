@@ -25,7 +25,7 @@ export async function GetAllMatches() {
   };
 
   try {
-    const data = await fetch(`https://${baseUrl}/matches/api`)
+    const data = await fetch(`${baseUrl}/matches/api`)
       .then((res) => res.json());
 
     data.forEach((match: Match) => {
