@@ -25,6 +25,7 @@ export function InputAddMatch() {
   const { push } = useRouter();
 
   console.log("baseUrl", baseUrl);
+  console.log("databaseurl", process.env.DATABASE_URL);
 
   function handleChangeTeamWinner(teamWinner: string) {
     setTeamWinner(teamWinner);
