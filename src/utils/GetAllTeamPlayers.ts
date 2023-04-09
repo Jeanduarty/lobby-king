@@ -77,7 +77,5 @@ export async function GetAllTeamPlayers(slug: string) {
     return finalDataTeamPlayers
   } catch (error) {
     console.log();
-    return 
   }
-
 }
