@@ -51,5 +51,4 @@ export async function GetAllMatches() {
     console.log(error);
     return formattedAllMatches
   }
-
 }

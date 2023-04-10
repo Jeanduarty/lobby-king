@@ -17,6 +17,7 @@ import bgDota from "../assets/bg-dota.jpg";
 
 import { Inter } from "next/font/google";
 import "../styles/global.css";
+import { PlayersDataProvider } from "@/hooks/usePlayersData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,35 +46,37 @@ export default async function RootLayout({
               className="rounded-2xl w-full absolute z-10"
               priority
             />
-            <ExploreFilesProvider>
-              <OpenFilesProvider>
-                <div className="grid grid-cols-[200px,1fr] h-full">
-                  <div
-                    className="bg-gradient-to-b from-[#161214] via-[#754436] to-[#161214]
+            <PlayersDataProvider>
+              <ExploreFilesProvider>
+                <OpenFilesProvider>
+                  <div className="grid grid-cols-[200px,1fr] h-full">
+                    <div
+                      className="bg-gradient-to-b from-[#161214] via-[#754436] to-[#161214]
                  rounded-bl-2xl rounded-tl-2xl pt-14 flex flex-col justify-between"
-                  >
-                    <Explorer allMatches={allMatches} />
+                    >
+                      <Explorer allMatches={allMatches} />
 
-                    <InputAddMatch />
-                  </div>
+                      <InputAddMatch />
+                    </div>
 
-                  <div className="h-full relative flex flex-col">
-                    <Image
-                      src={bgDota}
-                      alt=""
-                      fill={true}
-                      quality={100}
-                      priority
-                      className="object-cover rounded-br-2xl rounded-tr-2xl -z-10 w-full"
-                    />
-                    <OpenFilesTabs
-                      allFilesForTabInitial={allFilesForTabInitial}
-                    />
-                    <div className="h-full object-fill">{children}</div>
+                    <div className="h-full relative flex flex-col">
+                      <Image
+                        src={bgDota}
+                        alt=""
+                        fill={true}
+                        quality={100}
+                        priority
+                        className="object-cover rounded-br-2xl rounded-tr-2xl -z-10 w-full"
+                      />
+                      <OpenFilesTabs
+                        allFilesForTabInitial={allFilesForTabInitial}
+                      />
+                      <div className="h-full object-fill">{children}</div>
+                    </div>
                   </div>
-                </div>
-              </OpenFilesProvider>
-            </ExploreFilesProvider>
+                </OpenFilesProvider>
+              </ExploreFilesProvider>
+            </PlayersDataProvider>
           </div>
         </div>
       </body>

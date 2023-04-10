@@ -7,6 +7,7 @@ import { useExploreFiles } from "@/hooks/useExploreFiles";
 import { useRouter } from "next/navigation";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
 import axios from "axios";
+import { usePlayersData } from "@/hooks/usePlayersData";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL
@@ -43,8 +44,7 @@ export function InputAddMatch() {
       const isMatchExist = await axios
         .get(`${baseUrl}/matches/api/${matchId}`)
         .then((res) => res.data);
-        console.log(isMatchExist,"asdsa");
-        
+      console.log(isMatchExist, "asdsa");
 
       if (!!isMatchExist) {
         return setLoading(false);

@@ -1,4 +1,4 @@
-type playersDataProps = {
+export type playersDataProps = {
   playerId: number;
   nameHero: string;
   kda: { kills: number; deaths: number; assists: number };
@@ -66,6 +66,7 @@ export async function GetAllTeamPlayers(slug: string) {
     });
 
     const finalDataTeamPlayers = {
+      matchId: slug,
       teamRadiant: teamRadiantPlayers,
       teamDire: teamDirePlayers,
       winner: {
@@ -76,6 +77,17 @@ export async function GetAllTeamPlayers(slug: string) {
 
     return finalDataTeamPlayers
   } catch (error) {
-    console.log();
+    console.log(error);
+
+    return {
+      matchId: "",
+      teamRadiant: [],
+      teamDire: [],
+      winner: {
+        nameTeam: "",
+        radiant_win: false,
+      }
+    }
+
   }
-}
+} 
