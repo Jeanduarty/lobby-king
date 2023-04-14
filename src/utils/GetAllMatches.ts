@@ -5,11 +5,13 @@ type Match = {
   radiant_win: boolean;
 };
 
-export type AllMatches = {
+export type AllMatchesProps = {
   teamEfemero: Match[];
   teamSkizo: Match[];
   historic: Match[];
 };
+
+type ReduceReturnType = Omit<AllMatchesProps, "">
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL
@@ -18,37 +20,34 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export async function GetAllMatches() {
   // Função para pegar todas as partidas e reorganizar em um array para
   //facilitar na hora de criar os componentes
-  const formattedAllMatches: AllMatches = {
-    teamEfemero: [],
-    teamSkizo: [],
-    historic: [],
-  };
-
   try {
-    const data = await fetch(`${baseUrl}/matches/api`)
+    const data: Match[] = await fetch(`${baseUrl}/matches/api`)
       .then((res) => res.json());
 
-    data.forEach((match: Match) => {
+    const allMatches = data.reduce((acc, current) => {
       const formattedMatch = {
-        match_id: match?.match_id,
-        winner: match?.winner,
-        date: new Date(match?.date as number * 1000).toLocaleDateString(),
-        radiant_win: match?.radiant_win
+        match_id: current.match_id,
+        winner: current.winner,
+        date: new Date(current.date as number * 1000).toLocaleDateString(),
+        radiant_win: current.radiant_win
       };
-      formattedAllMatches?.historic.push(formattedMatch);
+      acc.historic.push(formattedMatch)
 
-      if (match?.winner === "teamEfemero") {
-        return formattedAllMatches.teamEfemero.push(formattedMatch);
+      if (current.winner === "teamEfemero") {
+        acc.teamEfemero.push(formattedMatch)
       }
 
-      if (match?.winner === "teamSkizo") {
-        return formattedAllMatches.teamSkizo.push(formattedMatch);
+      if (current.winner === "teamSkizo") {
+        acc.teamSkizo.push(formattedMatch)
       }
-    });
-    return formattedAllMatches;
+
+      return acc
+    }, { teamEfemero: [], teamSkizo: [], historic: [] } as ReduceReturnType);
+
+    return allMatches;
 
   } catch (error) {
     console.log(error);
-    return formattedAllMatches
+    return { teamEfemero: [], teamSkizo: [], historic: [] } as ReduceReturnType
   }
 }

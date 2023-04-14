@@ -4,12 +4,12 @@ import { Gamepad2 } from "lucide-react";
 import { Folder } from "./Folder";
 import { File } from "./File";
 
-import { AllMatches } from "@/utils/GetAllMatches";
+import { AllMatchesProps } from "@/utils/GetAllMatches";
 import { useExploreFiles } from "@/hooks/useExploreFiles";
 import { Score } from "./Score";
 
 type ExplorerProps = {
-  allMatches: AllMatches;
+  allMatches: AllMatchesProps;
 };
 
 export function Explorer({ allMatches }: ExplorerProps) {
@@ -51,9 +51,9 @@ export function Explorer({ allMatches }: ExplorerProps) {
               ))}
             </Folder>
 
-            <Folder title="Score">
+            {/* <Folder title="Score">
               <Score matches={matches}/>
-            </Folder>
+            </Folder> */}
           </>
         ) : (
           <></>

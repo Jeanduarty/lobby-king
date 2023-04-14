@@ -2,10 +2,10 @@ import teamSkizoImage from "../../assets/teamSkizo.png";
 import teamEfemeroImage from "../../assets/teamEfemero.png";
 
 import Image from "next/image";
-import { AllMatches } from "@/utils/GetAllMatches";
+import { AllMatchesProps } from "@/utils/GetAllMatches";
 
 type ScoreProps = {
-  matches: AllMatches;
+  matches: AllMatchesProps;
 };
 
 export function Score({ matches }: ScoreProps) {

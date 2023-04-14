@@ -1,11 +1,11 @@
 "use client";
 
-import { AllMatches, GetAllMatches } from "@/utils/GetAllMatches";
+import { AllMatchesProps, GetAllMatches } from "@/utils/GetAllMatches";
 import { createContext, useContext, useState } from "react";
 
 type ExploreFilesContextData = {
   UpdateMatches: () => void;
-  matches: AllMatches;
+  matches: AllMatchesProps;
   allFilesForTab: OpenFilesTabsProps[];
 };
 
@@ -23,7 +23,7 @@ export function ExploreFilesProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [matches, setMatches] = useState({} as AllMatches);
+  const [matches, setMatches] = useState({} as AllMatchesProps);
   const [allFilesForTab, setAllFilesForTab] = useState(
     [] as OpenFilesTabsProps[]
   );

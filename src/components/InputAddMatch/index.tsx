@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { Dialog } from "./Dialog";
 import { Spinner } from "../Spinner";
+
 import { useExploreFiles } from "@/hooks/useExploreFiles";
-import { useRouter } from "next/navigation";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
+
 import axios from "axios";
-import { usePlayersData } from "@/hooks/usePlayersData";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL

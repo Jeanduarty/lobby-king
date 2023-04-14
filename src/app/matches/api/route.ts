@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
   return new Response("METHOD NOT ALLOWED", { status: 405 })
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest, res: any) {
   const requestMethod = req.method;
 
   if (requestMethod === 'POST') {
@@ -67,6 +67,8 @@ export async function POST(req: NextRequest) {
       });
 
       console.log("successfully created!");
+
+      // await res.revalidate("/")
 
       return new Response("successfully created!", { status: 201 });
     } catch (error) {

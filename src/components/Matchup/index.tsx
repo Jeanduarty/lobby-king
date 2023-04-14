@@ -1,16 +1,24 @@
-"use client";
-
-import { usePlayersData } from "@/hooks/usePlayersData";
-import { HeroCard } from "../HeroCard";
+import { playersDataProps } from "@/utils/GetAllMatchData";
 import { Spinner } from "../Spinner";
+import { HeroCard } from "./HeroCard";
 
 type NameTeamProps = {
   nameTeam: string;
   radiant_win: boolean;
 };
 
+type AllPlayersDataProps = {
+  matchId: string;
+  teamRadiant: playersDataProps[];
+  teamDire: playersDataProps[];
+  winner: {
+    nameTeam: string;
+    radiant_win: boolean;
+  };
+};
+
 type MatchupProps = {
-  slug: string;
+  dataMatch: AllPlayersDataProps;
 };
 
 function NameTeams({ nameTeam, radiant_win }: NameTeamProps) {
@@ -29,12 +37,8 @@ function NameTeams({ nameTeam, radiant_win }: NameTeamProps) {
   };
 }
 
-export function Matchup({ slug }: MatchupProps) {
-  const { allPlayersData } = usePlayersData();
-
-  const data = allPlayersData.find((playerData) => playerData.matchId === slug);
-
-  if (!data) {
+export function Matchup({ dataMatch }: MatchupProps) {
+  if (!dataMatch) {
     return (
       <div
         className="bg-[#141213] h-full w-full flex items-center justify-center rounded-br-2xl
@@ -48,8 +52,8 @@ export function Matchup({ slug }: MatchupProps) {
     );
   }
 
-  const nameTeams = NameTeams(data?.winner);
-  const colorTeam = data?.winner?.radiant_win ? "#00693E" : "#D2122E";
+  const nameTeams = NameTeams(dataMatch?.winner);
+  const colorTeam = dataMatch.winner.radiant_win ? "#00693E" : "#D2122E";
 
   return (
     <div className="bg-zinc-900 p-4 rounded-md">
@@ -58,16 +62,16 @@ export function Matchup({ slug }: MatchupProps) {
           WINNER | {""}
           <span style={{ color: colorTeam }}>{nameTeams.teamWinner}</span>
         </h1>
-        <p className="text-[#AAA] hover:text-[#FFF]">{slug}</p>
+        <p className="text-[#AAA] hover:text-[#FFF]">{dataMatch.matchId}</p>
       </div>
       <div className="flex flex-col gap-2 items-center">
         <span className="text-[#AAA] italic">
           <span className="text-[#00693E]">RADIANT - </span>
           {nameTeams.teamRadiant}
         </span>
-        <HeroCard playersData={data.teamRadiant} />
+        <HeroCard playersData={dataMatch.teamRadiant} />
         <span className="text-white text-2xl">VS</span>
-        <HeroCard playersData={data.teamDire} />
+        <HeroCard playersData={dataMatch.teamDire} />
         <span className="text-[#AAA] italic">
           <span className="text-[#D2122E]">DIRE - </span>
           {nameTeams.teamDire}
