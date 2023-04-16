@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { Dialog } from "./Dialog";
 import { Spinner } from "../Spinner";
 
-import { useExploreFiles } from "@/hooks/useExploreFiles";
 import { useOpenFiles } from "@/hooks/useOpenFiles";
 
 import axios from "axios";
@@ -23,7 +22,6 @@ export function InputAddMatch() {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
 
-  const { UpdateMatches } = useExploreFiles();
   const { whenAddNewFile } = useOpenFiles();
   const { push } = useRouter();
 
@@ -46,7 +44,6 @@ export function InputAddMatch() {
       const isMatchExist = await axios
         .get(`${baseUrl}/matches/api/${matchId}`)
         .then((res) => res.data);
-      console.log(isMatchExist, "asdsa");
 
       if (!!isMatchExist) {
         return setLoading(false);
@@ -67,7 +64,7 @@ export function InputAddMatch() {
     } catch (error) {
       setLoading(false);
       alert("MATCH HAS NOT FOUND");
-      return console.log(error);
+      return;
     }
   }
 
@@ -81,11 +78,11 @@ export function InputAddMatch() {
           radiant_win: dataMatch?.radiant_win,
         });
 
-        UpdateMatches();
         setMatchId("");
         setIsOkToOpenDialog(false);
         whenAddNewFile(`/matches/${matchId}`);
-        return push(`/matches/${matchId}`);
+
+        return (window.location.href = `/matches/${matchId}`);
       } catch (error) {
         console.log(error);
       }

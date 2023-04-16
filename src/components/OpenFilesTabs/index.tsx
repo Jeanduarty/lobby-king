@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CloseFileButton } from "./CloseFileButton";
 import { Gamepad2 } from "lucide-react";
-import { useExploreFiles } from "@/hooks/useExploreFiles";
 
 type OpenFilesTabsProps = {
   allFilesForTabInitial: {
@@ -18,12 +17,6 @@ type OpenFilesTabsProps = {
 
 export function OpenFilesTabs({ allFilesForTabInitial }: OpenFilesTabsProps) {
   const { openFiles } = useOpenFiles();
-  const { allFilesForTab: allFilesForTabContext } = useExploreFiles();
-
-  const allFiles =
-    allFilesForTabContext.length > 1
-      ? allFilesForTabContext
-      : allFilesForTabInitial;
 
   const pathName = usePathname();
 
@@ -32,7 +25,7 @@ export function OpenFilesTabs({ allFilesForTabInitial }: OpenFilesTabsProps) {
       {openFiles?.map((openFile, index) => {
         const isActive = pathName === openFile;
 
-        const file = allFiles.find(
+        const file = allFilesForTabInitial.find(
           (file) => file.path === openFile
         );
 

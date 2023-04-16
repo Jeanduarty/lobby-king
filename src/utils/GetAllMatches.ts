@@ -20,9 +20,15 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 export async function GetAllMatches() {
   // Função para pegar todas as partidas e reorganizar em um array para
   //facilitar na hora de criar os componentes
+  console.log('TO DENTRO');
+  // console.log('executei');
+
   try {
-    const data: Match[] = await fetch(`${baseUrl}/matches/api`)
+    const data: Match[] = await fetch(`${baseUrl}/matches/api`, { next: { revalidate: 2 }, cache: "no-store" })
       .then((res) => res.json());
+
+    console.log("executei após o fetch");
+
 
     const allMatches = data.reduce((acc, current) => {
       const formattedMatch = {
@@ -47,7 +53,7 @@ export async function GetAllMatches() {
     return allMatches;
 
   } catch (error) {
-    console.log(error);
+    console.log("DEU RUIM NO GETALLMATCHES");
     return { teamEfemero: [], teamSkizo: [], historic: [] } as ReduceReturnType
   }
 }

@@ -16,7 +16,6 @@ export async function GET(req: NextRequest, { params }: any) {
       })
       return NextResponse.json(isExist, { status: 200 })
     } catch (error) {
-      console.log('NO MATCH FOUND!');
     }
     return NextResponse.json(null)
   }
