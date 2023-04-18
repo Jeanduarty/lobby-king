@@ -6,15 +6,16 @@ import { useRouter } from "next/navigation";
 import { Dialog } from "./Dialog";
 import { Spinner } from "../Spinner";
 
-import { useOpenFiles } from "@/hooks/useOpenFiles";
-
 import axios from "axios";
+import { useMatchesData } from "@/hooks/useMatchesData";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL
   : process.env.NEXT_PUBLIC_VERCEL_URL;
 
 export function InputAddMatch() {
+  const { UpdatePlayersData } = useMatchesData();
+
   const [teamWinner, setTeamWinner] = useState("teamEfemero");
   const [matchId, setMatchId] = useState("");
   const [isOkToOpenDialog, setIsOkToOpenDialog] = useState(false);
@@ -22,7 +23,6 @@ export function InputAddMatch() {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
 
-  const { whenAddNewFile } = useOpenFiles();
   const { push } = useRouter();
 
   function handleChangeTeamWinner(teamWinner: string) {
@@ -80,9 +80,9 @@ export function InputAddMatch() {
 
         setMatchId("");
         setIsOkToOpenDialog(false);
-        whenAddNewFile(`/matches/${matchId}`);
+        await UpdatePlayersData();
 
-        return (window.location.href = `/matches/${matchId}`);
+        return push(`/matches/${matchId}`);
       } catch (error) {
         console.log(error);
       }

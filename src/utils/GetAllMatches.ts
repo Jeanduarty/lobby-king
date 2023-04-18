@@ -21,7 +21,7 @@ export async function GetAllMatches() {
   // Função para pegar todas as partidas e reorganizar em um array para
   //facilitar na hora de criar os componentes
   try {
-    const data: Match[] = await fetch(`${baseUrl}/matches/api`, { next: { revalidate: 2 }, cache: "no-store" })
+    const data: Match[] = await fetch(`${baseUrl}/matches/api`)
       .then((res) => res.json());
 
     const allMatches = data.reduce((acc, current) => {

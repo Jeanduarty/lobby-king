@@ -1,7 +1,7 @@
 "use client";
 
-import * as TP from "@radix-ui/react-tooltip";
 import { ReactNode } from "react";
+import * as TP from "@radix-ui/react-tooltip";
 
 type TooltipProps = {
   children: ReactNode;

@@ -1,21 +1,16 @@
 "use client";
 
-import { useOpenFiles } from "@/hooks/useOpenFiles";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
+import { useOpenFiles } from "@/hooks/useOpenFiles";
+import { useMatchesData } from "@/hooks/useMatchesData";
+
 import { CloseFileButton } from "./CloseFileButton";
 import { Gamepad2 } from "lucide-react";
 
-type OpenFilesTabsProps = {
-  allFilesForTabInitial: {
-    match_id: string;
-    winner: string;
-    date: string;
-    path: string;
-  }[];
-};
-
-export function OpenFilesTabs({ allFilesForTabInitial }: OpenFilesTabsProps) {
+export function OpenFilesTabs() {
+  const { allFilesForTab } = useMatchesData();
   const { openFiles } = useOpenFiles();
 
   const pathName = usePathname();
@@ -25,9 +20,7 @@ export function OpenFilesTabs({ allFilesForTabInitial }: OpenFilesTabsProps) {
       {openFiles?.map((openFile, index) => {
         const isActive = pathName === openFile;
 
-        const file = allFilesForTabInitial.find(
-          (file) => file.path === openFile
-        );
+        const file = allFilesForTab.find((file) => file.path === openFile);
 
         if (!file) {
           return <div key={index}></div>;

@@ -61,7 +61,7 @@ export function HeroCard({ playersData }: HeroCardProps) {
               src={player?.nameHero}
               width={80}
               height={80}
-              className="w-full rounded-tl-md rounded-tr-md"
+              className="w-full rounded-tl-md rounded-tr-md h-[50px]"
               priority
             />
             <div className="flex flex-col items-center gap-2">

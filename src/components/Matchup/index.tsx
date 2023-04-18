@@ -1,4 +1,4 @@
-import { playersDataProps } from "@/utils/GetAllMatchData";
+import { AllPlayersDataProps, useMatchesData } from "@/hooks/useMatchesData";
 import { Spinner } from "../Spinner";
 import { HeroCard } from "./HeroCard";
 
@@ -7,18 +7,8 @@ type NameTeamProps = {
   radiant_win: boolean;
 };
 
-type AllPlayersDataProps = {
-  matchId: string;
-  teamRadiant: playersDataProps[];
-  teamDire: playersDataProps[];
-  winner: {
-    nameTeam: string;
-    radiant_win: boolean;
-  };
-};
-
 type MatchupProps = {
-  dataMatch: AllPlayersDataProps;
+  matchId: string;
 };
 
 function NameTeams({ nameTeam, radiant_win }: NameTeamProps) {
@@ -37,7 +27,11 @@ function NameTeams({ nameTeam, radiant_win }: NameTeamProps) {
   };
 }
 
-export function Matchup({ dataMatch }: MatchupProps) {
+export function Matchup({ matchId }: MatchupProps) {
+  const { allMatchesData } = useMatchesData();
+
+  const dataMatch = allMatchesData.find(match => match.matchId === matchId)
+
   if (!dataMatch) {
     return (
       <div

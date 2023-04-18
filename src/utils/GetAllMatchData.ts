@@ -45,13 +45,9 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
   ? process.env.NEXT_PUBLIC_BASE_URL
   : process.env.NEXT_PUBLIC_VERCEL_URL;
 
-export async function GetAllMatchData(id: string) {
+export async function GetAllMatchData(id: string, teamWinner: string) {
   try {
     const data: GET_DATA_Props = await client.request(GET_DATA(Number(id)));
-
-    const matchData: matchDataProps = await fetch(`${baseUrl}/matches/api/${id}`).then(
-      (res) => res.json()
-    );
 
     const playerData = data.match.players.reduce((acc, current) => {
       //faço esse replace pra obter o nome exato do hero para buscar a imagem
@@ -88,7 +84,7 @@ export async function GetAllMatchData(id: string) {
       teamRadiant: SortPlayersByPosition(playerData.teamRadiantPlayers),
       teamDire: SortPlayersByPosition(playerData.teamDirePlayers),
       winner: {
-        nameTeam: matchData.winner,
+        nameTeam: teamWinner,
         radiant_win: data.match.didRadiantWin
       },
     }
