@@ -10,13 +10,15 @@ import { Spinner } from "../Spinner";
 
 export function Explorer() {
   const { allMatchesForExplorer: allMatches } = useMatchesData();
+  console.log(allMatches)
+
 
   return (
     <>
       <nav className="flex flex-col h-full">
         <>
           <Folder title="Team Skizo">
-            {allMatches?.teamSkizo?.length > 1 ? (
+            {allMatches?.teamSkizo?.length > 0 ? (
               allMatches.teamSkizo.map((match) => (
                 <File href={`/matches/${match.match_id}`} key={match.match_id}>
                   <Gamepad2 size={16} />
@@ -31,7 +33,7 @@ export function Explorer() {
           </Folder>
 
           <Folder title="Team Efemero">
-            {allMatches?.teamEfemero?.length > 1 ? (
+            {allMatches?.teamEfemero?.length > 0 ? (
               allMatches.teamEfemero.map((match) => (
                 <File href={`/matches/${match.match_id}`} key={match.match_id}>
                   <Gamepad2 size={16} />
@@ -46,7 +48,7 @@ export function Explorer() {
           </Folder>
 
           <Folder title="Histórico">
-            {allMatches?.historic?.length > 1 ? (
+            {allMatches?.historic?.length > 0 ? (
               allMatches.historic.map((match) => (
                 <File href={`/matches/${match.match_id}`} key={match.match_id}>
                   <Gamepad2 size={16} />

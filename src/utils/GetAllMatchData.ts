@@ -41,10 +41,6 @@ type TypeReturn = {
   };
 }
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
-  ? process.env.NEXT_PUBLIC_BASE_URL
-  : process.env.NEXT_PUBLIC_VERCEL_URL;
-
 export async function GetAllMatchData(id: string, teamWinner: string) {
   try {
     const data: GET_DATA_Props = await client.request(GET_DATA(Number(id)));

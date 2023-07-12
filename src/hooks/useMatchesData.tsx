@@ -68,8 +68,6 @@ export function MatchesDataProvider({
       })
     );
     setAllMatchesData(allMatchesData);
-    console.log('executei');
-    
   }
 
   useEffect(() => {
